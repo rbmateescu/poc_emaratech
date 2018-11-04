@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<agent-input>
+  <variables>
+    <variable name='sharedLocation' value='<%= @IMSHARED %>'/>
+  </variables>
+  <server>
+    <repository location='<%= @REPO_LOCATION %>' />
+  </server>
+  <profile id='Operational Decision Manager V8.9_1' installLocation='<%= @INSTALL_LOCATION %>'>
+    <data key='cic.selector.arch' value='x86_64'/>
+    <data key='user.wodm_was_home' value='<%= @WAS_LOCATION %>'/>
+    <data key='user.wodm_admin_password' value='<%= @WAS_PASSWORD %>'/>
+    <data key='user.wodm_admin_username' value='<%= @WAS_LOCATION %>'/>
+    <data key='user.confirm_password' value='<%= @WAS_PASSWORD %>'/>
+    <data key='user.lic.dsr' value='rules'/>
+    <data key='user.prod.dsr' value='false'/>
+    <data key='user.metrics.dsr' value='PVU'/>
+    <data key='user.lic.dc' value='full'/>
+  </profile>
+  <install>
+    <!-- Decision Center 8.9.0.0 -->
+    <offering profile='Operational Decision Manager V8.9_1' id='com.ibm.websphere.odm.dc.v89' version='8.9.1000.20171018_1805' features='jdk,base,Decision Center,com.ibm.wdc.rules.samples.feature'/>
+    <!-- Decision Center profile templates for WebSphere Application Server 8.9.1 -->
+    <offering profile='Operational Decision Manager V8.9_1' id='com.ibm.websphere.odm.pt.dc.v89' version='8.9.1000.20171018_1855' features='main.feature' installFixes='none'/>
+    <!-- Decision Server Rules 8.9.0.0 -->
+    <offering profile='Operational Decision Manager V8.9_1' id='com.ibm.websphere.odm.ds.rules.v89' version='8.9.1000.20171018_1824' features='com.ibm.wds.jdk.feature,base,com.ibm.wds.rules.studio.feature,com.ibm.wds.rules.res.feature,com.ibm.wds.rules.samples.feature,com.ibm.wds.rules.buildcommand.feature,com.ibm.wds.updatesites.feature'/>
+    <!-- Rules profile templates for WebSphere Application Server  8.9.1 -->
+    <offering profile='Operational Decision Manager V8.9_1' id='com.ibm.websphere.odm.pt.rules.v89' version='8.9.1000.20171018_1858' features='main.feature' installFixes='none'/>
+  </install>
+  <preference name='com.ibm.cic.common.core.preferences.connectTimeout' value='30'/>
+  <preference name='com.ibm.cic.common.core.preferences.readTimeout' value='45'/>
+  <preference name='com.ibm.cic.common.core.preferences.downloadAutoRetryCount' value='0'/>
+  <preference name='offering.service.repositories.areUsed' value='true'/>
+  <preference name='com.ibm.cic.common.core.preferences.ssl.nonsecureMode' value='true'/>
+  <preference name='com.ibm.cic.common.core.preferences.http.disablePreemptiveAuthentication' value='false'/>
+  <preference name='http.ntlm.auth.kind' value='NTLM'/>
+  <preference name='http.ntlm.auth.enableIntegrated.win32' value='true'/>
+  <preference name='com.ibm.cic.common.core.preferences.keepFetchedFiles' value='false'/>
+  <preference name='PassportAdvantageIsEnabled' value='false'/> 
+  <preference name='com.ibm.cic.common.core.preferences.searchForUpdates' value='false'/>
+  <preference name='com.ibm.cic.agent.ui.displayInternalVersion' value='false'/>
+  <preference name='com.ibm.cic.common.core.preferences.eclipseCache' value='<%= @IMSHARED %>'/>
+</agent-input>
+

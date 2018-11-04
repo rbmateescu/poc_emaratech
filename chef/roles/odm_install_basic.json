@@ -1,0 +1,36 @@
+{
+    "name": "odm_install_basic",
+    "description":"installs ODM in a basic config with Liberty Server ",
+    "json_class":"Chef::Role",
+    "chef_type":"role",
+    "default_attributes":{
+      "ibm" : {
+        "sw_repo" : "",
+        "sw_repo_user" : "repouser",
+        "sw_repo_password" : "",
+        "im_repo" : "",
+        "im_repo_user" : "repouser",
+        "im_repo_password" : ""
+      },
+      "was_liberty" : {
+        "edition": "base",
+        "install_user": "root",
+        "install_grp": "root",
+        "runas_user": "root",
+        "install_dir" : "/opt/IBM/WebSphere/Liberty",
+        "java_version" : "8.0",
+        "base_version" : "18.0.2",
+        "wlp_user_dir": "/opt/IBM/WebSphere/Liberty/usr"
+      },
+      "odm": {
+          "install_dir" : "/opt/IBM/ODM891"
+      }
+    },
+    "run_list":[
+        "recipe[wasliberty::prereq]",
+        "recipe[wasliberty::install]",
+        "recipe[wasliberty::gather_evidence]",
+        "recipe[wasliberty::cleanup]",
+        "recipe[odm::install_on_liberty]"
+    ]
+}

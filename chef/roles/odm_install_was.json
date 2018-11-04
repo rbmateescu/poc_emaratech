@@ -1,0 +1,65 @@
+{
+    "name": "odm_install_was",
+    "description":"installs ODM in a basic config with WebSphere 8.5.5",
+    "json_class":"Chef::Role",
+    "chef_type":"role",
+    "default_attributes":{
+      "ibm" : {
+        "sw_repo" : "",
+        "sw_repo_user" : "repouser",
+        "sw_repo_password" : "",
+        "im_repo" : "",
+        "im_repo_user" : "repouser",
+        "im_repo_password" : ""
+      },
+      "was": {
+        "version": "8.5.5.13",
+        "java_version": "7.1.4.15",
+        "install_dir": "/opt/IBM/WebSphere/AppServer",
+        "profile_dir": "/opt/IBM/WebSphere/AppServer/profiles",
+        "os_users": {
+          "was": {
+            "name": "root",
+            "gid": "root",
+            "comment": "WAS administrative user",
+            "home": "/root",
+            "ldap_user": "false"
+          }
+        },
+        "security": {
+          "admin_user": "wasadmin",
+          "admin_user_pwd": ""
+        },
+        "profiles": {
+          "standalone_profiles": {
+            "standalone1": {
+              "profile": "AppSrv01",
+              "server": "server1",
+              "cell": "cell01",
+              "keystorepassword": ""
+            }
+          }
+        },
+        "wsadmin": {
+          "standalone": {
+            "jvmproperty": {
+              "property_value_initial": "2048",
+              "property_value_maximum": "8196"
+            }
+          }
+        }
+      },
+      "odm": {
+          "install_dir" : "/opt/IBM/ODM891"
+      }
+    },
+    "run_list":[
+      "recipe[was::prereq]",
+      "recipe[was::prereq_check]",
+      "recipe[was::install]",
+      "recipe[was::create_standalone]",
+      "recipe[was::configure_standalone]",
+      "recipe[was::cleanup]",
+      "recipe[odm::install_on_was]"
+    ]
+}
